@@ -9,16 +9,42 @@
 // "writable": true,, свойство можно изменить, иначе оно только для чтения.
 // "enumerable": true,свойство перечисляется в циклах, в противном случае циклы его игнорируют.
 // "configurable": true свойство можно удалить, а эти атрибуты можно изменять, иначе этого делать нельзя.
+// const obj = {
+//   name: "josh",
+// };
+// Object.defineProperty(obj, "name", {
+//   writable: false,
+//   enumerable: true,
+// });
 const obj = {
-    name: 'josh'
+  position: true,
 };
-Object.defineProperty(obj, "name", {
-    writable: false,
+const obj2 = {
+  name: "vlad",
+};
+//Вариант установки прототипа
+const obj1 = {
+  __proto__: obj2,
+  age: 10,
+};
+//Создаем объект и устанавливаем прототип
+const obj3 = Object.create(obj1, {
+  years: {
+    value: 25,
     enumerable: true,
-  });
+    writable: false,
+    configurable: false,
+  },
+});
+//Получаем прототип объекта
+console.log(Object.getPrototypeOf(obj3));
+console.log(obj3.__proto__);
+//Устанавливаем прототип
+Object.setPrototypeOf(obj, obj3);
 
 // Метод Object.getOwnPropertyDescriptor позволяет получить полную информацию о свойстве.
 // let descriptor = Object.getOwnPropertyDescriptor(obj, propertyName);
+// obj.hasOwnProperty(key): возвращает true, если у obj есть собственное (не унаследованное) свойство с именем key.
 
 // Object.preventExtensions(obj)
 // Запрещает добавлять новые свойства в объект.
@@ -35,47 +61,10 @@ Object.defineProperty(obj, "name", {
 // Object.isFrozen(obj)
 // Возвращает true, если добавление/удаление/изменение свойств запрещено, и для всех текущих свойств установлено configurable: false, writable: false.
 
+// Object.keys(obj) / Object.values(obj) / Object.entries(obj) – возвращают массив всех перечисляемых собственных строковых ключей/значений/пар ключ-значение.
+
+//Getter Setter obj
+
 // Arrays (create, modify, indexes, length, built-in methods: sorting, filtering, search, iterating; Array static methods)
 
-// Functions (create, invoke, arrow functions, rest/spread operator, default parameters, scope, closure, recursion)
-//Как рекурсия влияет не стек вызова
-//Повторить замыкания
-// Pure functions
-// Immutability
-// Functions as first-class entities
-// Functions composition
-// High order functions
-// Recursion
-// Currying/Memoization
-// func memo фибоначи
 
-// This/Prototype (execution context, call/apply/bind methods, constructor functions, understanding of prototypes)
-//Разные методы наследования через js 
-//__proto__ указывает на функцию конструктор. 
-//prototype это функция конструктор в которую мы можем заложить опр методы
-
-// Когда функция производит вложенный вызов, происходит следующее:
-// Выполнение текущей функции приостанавливается.
-// Контекст выполнения, связанный с ней, запоминается в специальной структуре данных – стеке контекстов выполнения.
-// Выполняются вложенные вызовы, для каждого из которых создаётся свой контекст выполнения.
-// После их завершения старый контекст достаётся из стека, и выполнение внешней функции возобновляется с того места, где она была остановлена.
-
-// Classes (constructors, static members)
-
-// Basic Async JavaScript (Timers, Promise, async/await)
-
-// JavaScript Errors (try..catch, throw, Error class)
-
-// Global object window (location, history, navigator, screen, document, cookies)
-
-// DOM Manipulation (selection, traversing, modification, live collections)
-
-// Nodes Modification (node properties, attributes, data attributes, styling)
-
-// Classes (constructors, static members)
-
-// Event Handling (mouse, keyboard, event phases, event listeners, propagation)
-
-// AJAX (fetch)
-
-// Web Storage (sessionStorage, localStorage)
