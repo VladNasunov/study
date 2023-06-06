@@ -1,17 +1,17 @@
-// const obj = { a: 1 };
+const obj = { a: 1 };
 
-// // function foo(obj) {
-// //   obj.a = 2;
-// // }
+function foo(obj) {
+  obj.a = 2;
+}
 
-// function bar(obj) {
-//   obj = { a: 3 };
-//   return obj
-// }
+function bar(obj) {
+  obj = { a: 3 };
+  return obj
+}
 
-// // foo(obj); // obj = 2
+foo(obj); // obj = 2
 
-// console.log(bar(obj)); //undefined
+// console.log(bar(obj)); // a 3
 
 // console.log("3", obj);
 
@@ -21,29 +21,30 @@
 // //    second: [{ group: 'second', name: 'Sasha' }],
 // //    third: [{ group: 'second', name: 'Sasha' }]
 // // }
-// const people = [
-//   { group: "first", name: "Mary" },
-//   { group: "second", name: "Sasha" },
-//   { group: "first", name: "Vasya" },
-//   { group: "third", name: "Vasya" },
-// ];
+const people = [
+  { group: "first", name: "Mary" },
+  { group: "second", name: "Sasha" },
+  { group: "first", name: "Vasya" },
+  { group: "third", name: "Vasya" },
+];
 
-// const groupData = (arr) =>
-//   arr.reduce((acc, el) => {
-//     acc[el.group] ? acc[el.group].push(el) : (acc[el.group] = [el]);
-//     return acc;
-//   }, {});
+
+const groupData = (arr) =>
+  arr.reduce((acc, el) => {
+    acc[el.group] ? acc[el.group].push(el) : (acc[el.group] = [el]);
+    return acc;
+  }, {});
 
 // console.log(groupData(people));
 
 // написать функциию, котороая принимает масив строк
 // возвращает массив длин этих строк
 // const arr = ["first", "second", "third"];
-// const countStringLength = (arr) =>
-//   arr.reduce((acc, str) => {
-//     acc.push(str.length);
-//     return acc;
-//   }, []);
+const countStringLength = (arr) =>
+  arr.reduce((acc, str) => {
+    acc.push(str.length);
+    return acc;
+  }, []);
 // console.log(countStringLength(arr));
 
 //Что выведет консоль
@@ -61,19 +62,19 @@
 
 // const string = "hello world dsdfdaf";
 
-// function reverse(str) {
-//   return str.split(" ").reduce((acc, i) => {
-//     acc.unshift(i);
-//     return acc;
-//   }, []).join(' ')
-//   // const rev = str.split(' ')
-//   // let res = []
-//   // for (let i = rev.length - 1; i >= 0; i--){
-//   //     res.push(rev[i])
-//   // }
-//   // return res.join(' ')
-// }
-// console.log(reverse(string));
+function reverse(str) {
+  // return str.split(" ").reduce((acc, i) => {
+  //   acc.unshift(i);
+  //   return acc;
+  // }, []).join(' ')
+  // const rev = str.split(' ')
+  // let res = []
+  // for (let i = rev.length - 1; i >= 0; i--){
+  //     res.push(rev[i])
+  // }
+  // return res.join(' ')
+}
+console.log(reverse(string));
 
 // function getAverage(marks){
 //     //TODO : calculate the downwar rounded average of the marks array
@@ -410,57 +411,7 @@ var isAnagram = function (test, original) {
 };
 // console.log(isAnagram("Buckethead", "DeathCubeK"));
 
-function binarySearch(arr, item) {
-  let flag = false;
-  let start = 0;
-  let end = arr.length;
-  let position;
-  let middle;
-  while (flag === false && start <= end) {
-    middle = Math.floor((start + end) / 2);
-    if (arr[middle] === item) {
-      flag = true;
-      position = middle;
-      return position;
-    }
-    if (arr[middle] < item) {
-      start = middle + 1;
-    } else {
-      end = middle - 1;
-    }
-  }
-  return position;
-}
-// console.log(binarySearch([1, 2, 3, 4, 5], 3));
 
-function bubleSort(arr) {
-  let temp;
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      if (arr[j + 1] < arr[j]) {
-        temp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = temp;
-      }
-    }
-  }
-  return arr;
-}
-
-function sortByChoose(arr) {
-  for (let i = 0; i < arr.length; i++) {
-    let indexMin = i;
-    for (let j = i + 1; j < arr.length; j++) {
-      if (arr[j] < arr[indexMin]) {
-        indexMin = j;
-      }
-      let temp = arr[j];
-      arr[i] = arr[indexMin];
-      arr[indexMin] = temp;
-    }
-  }
-  return arr;
-}
 
 function fastSort(arr) {
   if (arr.length <= 1) {
@@ -478,7 +429,10 @@ function fastSort(arr) {
       greater.push(arr[i]);
     }
   }
-  return [...fastSort(less), pivot, ...fastSort(greater)];
+  const lessArr = fastSort(less);
+  const greaterArr = fastSort(greater)
+
+  return [...lessArr, pivot, ...greaterArr];
 }
 const result = fastSort([1, 3, 5, 200, 10, 4, 100]);
 console.log(result[result.length - 1]);
@@ -522,6 +476,26 @@ function findMax(arr) {
 }
 console.log(findMax(arrList));
 
+//СТандартное решение
+var isValid = function(s) {
+  let stack = []
+
+  let obj = {')':'(', '}':'{', ']':'['}
+
+  for(let i = 0; i < s.length; i++){
+     if(obj[s[i]]){
+        if(stack.length && stack[stack.length -1] === obj[s[i]]){
+          stack.pop();
+        } else{
+          return false;
+        }
+     } else{
+      stack.push(s[i])
+     }
+  }
+
+  return stack.length === 0;
+}; 
 function isValid(s) {
   const brackets = {
     ")": "(",
@@ -547,6 +521,7 @@ function isClosedBracket(ch) {
 console.log(isValid("()[]{}"));
 console.log(isValid("{[]")); //false
 console.log(isValid("(f[o]{o})")); //true
+
 
 // var test = function(str) {
 //   var chars = str.split(''),
